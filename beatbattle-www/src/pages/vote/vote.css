@@ -1,0 +1,103 @@
+.vote .track {
+   display: flex;
+   flex-direction: row;
+
+   height: max(80px, fit-content);
+   padding: 10px;
+   cursor: pointer;
+}
+
+.vote .track .track-main {
+   flex: 3;
+}
+
+.vote .track .track-monkey {
+   flex: 1;
+}
+
+.vote .track .track-monkey img {
+   height: 100%;
+   width: 100%;
+   object-fit: fill;
+   object-position: top;
+
+   border-radius: 4px;
+   margin: 10px;
+
+   opacity: 0.5;
+
+   transition: 300ms opacity;
+}
+
+.vote .track:hover {
+   background-color: var(--color-normal);
+   border-radius: 4px;
+}
+
+.vote .track {
+   margin-bottom: 10px;
+}
+
+.vote .track.selected {
+   background-color: var(--color-accent);
+   border-radius: 4px;
+}
+
+.vote .track:hover .track-monkey img,
+.vote .track.selected .track-monkey img {
+   opacity: 1;
+}
+
+.notification {
+   position: fixed;
+   top: 1rem;
+   left: 50%;
+   transform: translate(-50%);
+   padding: 4px 8px;
+
+   font-size: 1.25rem;
+
+   transition: top 300ms cubic-bezier(0, 0, 0, 1);
+}
+
+.notification.hidden {
+   top: -4rem;
+}
+
+.vote button {
+   margin-top: 20px;
+   font-size: 2rem;
+   margin-bottom: 60px;
+}
+
+.vote .form-element {
+   margin-top: 30px;
+}
+
+.vote .clock {
+   margin-bottom: 30px;
+}
+
+.vote .winner {
+   background-color: var(--color-normal);
+   padding: 4px 8px;
+   border-radius: 4px;
+
+   max-width: 350px;
+   margin: auto;
+   margin-bottom: 10px;
+}
+
+.vote .winner.big {
+   background-color: var(--color-accent);
+}
+
+.vote .winner > * {
+   margin: 0;
+}
+
+.vote .winner .votes {
+   font-size: 1rem;
+   font-family: "Coolvetica", sans-serif;
+   margin-left: 1.5rem;
+}

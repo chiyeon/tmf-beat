@@ -1,0 +1,196 @@
+@font-face {
+   font-family: "Coolvetica";
+   src: url(../public/assets/fonts/coolvetica\ rg.otf);
+   font-style: normal;
+}
+
+@font-face {
+   font-family: "Coolvetica";
+   src: url(../public/assets/fonts/coolvetica\ rg\ it.otf);
+   font-style: italic;
+}
+
+@font-face {
+   font-family: "Inter";
+   src: url(../public/assets/fonts/Inter-Regular.ttf);
+   font-weight: normal;
+}
+
+@font-face {
+   font-family: "Inter";
+   src: url(../public/assets/fonts/Inter-SemiBold.ttf );
+   font-weight: bold;
+}
+
+:root {
+   --color-light: #DCD7C9;
+   --color-normal: #3F4E4F;
+   --color-dark: #2C3639;
+   --color-accent: #A27B5C;
+}
+
+body {
+   background-color: var(--color-dark);
+   margin: 0;
+}
+
+h1 {
+   margin: 0;
+   font-size: 5rem;
+   font-family: "Coolvetica", sans-serif;
+   font-style: italic;
+}
+
+h2 {
+   font-size: 2.5rem;
+   font-family: "Coolvetica", sans-serif;
+   font-style: italic;
+
+   background-color: var(--color-normal);
+   width: fit-content;
+   padding: 8px 8px 4px 8px;
+   border-radius: 4px;
+   margin: 0;
+}
+
+p {
+   font-family: sans-serif;
+   font-size: 1.2rem;
+   font-family: "Inter", sans-serif;
+}
+
+h1, h2, p {
+   color: var(--color-light);
+   font-weight: normal;
+}
+
+hr {
+   margin: 10px 0 20px 0;
+   border: none;
+   height: 2px;
+   background-color: var(--color-accent);
+   width: 50%;
+}
+
+main {
+   max-width: 600px;
+   margin: auto;
+   padding: 0 20px 0 20px;
+   -webkit-font-smoothing: antialiased;
+   -moz-osx-font-smoothing: grayscale;
+   opacity: 0;
+   transition: 300ms opacity;
+}
+
+a.tag {
+   font-size: 1.15rem !important;
+   text-decoration: none;
+
+   background-color: var(--color-dark);
+   color: var(--color-light);
+
+   cursor: pointer;
+}
+
+a.tag:hover {
+   background-color: var(--color-normal);
+
+}
+a.tag.active {
+   background-color: var(--color-accent);
+}
+
+.directory {
+   padding-bottom: 30px;
+}
+
+.directory > * {
+   margin-right: 4px;
+}
+
+.site-title h1:nth-child(1) {
+   float: left;
+}
+
+.site-title h1:last-child {
+   color: var(--color-accent);
+}
+
+.tag {
+   font-family: "Coolvetica", sans-serif;
+   font-size: 1rem;
+   background-color: var(--color-accent);
+   color: var(--color-dark);
+   width: fit-content;
+   height: fit-content;
+   padding: 2px 4px 2px 4px;
+   border-radius: 4px;
+}
+
+button.tag {
+   border: none;
+   cursor: pointer;
+}
+
+button.tag:focus,
+button.tag:hover {
+   background-color: var(--color-light);
+}
+button.tag:active {
+   background-color: var(--color-normal);
+}
+
+.title p {
+   margin-top: 0;
+   margin-bottom: 4px;
+   position: relative;
+   left: 20px;
+   top: 12px;
+   border-radius: 4px;
+}
+
+.title hr {
+   width: 100%;
+}
+
+.form-element {
+   position: relative;
+
+   display: flex;
+   flex-direction: column;
+   width: 200px;
+}
+
+.form-element label {
+   position: absolute;
+   top: -0.85rem;
+   left: 1rem;
+}
+
+input[type="password"],
+input[type="text"] {
+   padding: 8px 8px 4px 8px;
+   border: none;
+   background-color: var(--color-normal);
+   color: var(--color-light);
+   border-radius: 4px;
+
+   font-size: 1.25rem;
+}
+
+input[type="password"]:focus {
+   outline: none !important;
+}
+
+label {
+   color: var(--color-light) !important;
+   background-color: var(--color-normal) !important;
+}
+
+.track audio {
+   width: 100%;
+}
+
+.track audio.chrome-audio {
+   height: 40px;
+}

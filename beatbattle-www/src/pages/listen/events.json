@@ -1,0 +1,156 @@
+{
+   "events": [
+      {
+         "title": "5th Beat Battle",
+         "date": "5/12/2023 - 5/14/2023",
+         "tracks": [
+            {
+               "title": "im sowy timby >_<",
+               "artist": "gab",
+               "link": "https://cdn.discordapp.com/attachments/754122270590500986/1107533089678295120/eapogusd8igjs.wav"
+            },
+            {
+               "title": "igloo",
+               "artist": "purple guy",
+               "link": "https://cdn.discordapp.com/attachments/1098048843901304934/1107543828153499678/igloo.mp3"
+            },
+            {
+               "title": "peach mango body armor lyte",
+               "artist": "chiyeon",
+               "link": "https://cdn.discordapp.com/attachments/593321136335355934/1107548756611702846/peachmangobodyarmorlyte.mp3"
+            },
+            {
+               "title": "SOS HELP RESCUE I NEED HELP PLEASE RESCUE ME",
+               "artist": "waymond",
+               "link": "https://cdn.discordapp.com/attachments/222509622576021504/1107548339098095687/5-14_beat_challenge.wav"
+            }
+         ]
+      },
+      {
+         "title": "4th Beat Battle",
+         "date": "5/5/2023 - 5/6/2023",
+         "tracks": [
+            {
+               "title": "shockwaves",
+               "artist": "waymond",
+               "link": "https://cdn.discordapp.com/attachments/1098048843901304934/1104808832498143332/shockwaves.wav",
+               "winner": true
+            }
+         ]
+      },
+      {
+         "title": "10 Minute Beat Challenge",
+         "date": "4/30/2023",
+         "tracks": [
+            {
+               "title": "HELPH HELPHLEHLEPH HELPHELP HELP HELPHELP HELP HELPHELPH HELPHLEHLEPH HELPHELP HELP HELPHELP HELP HELP VOTE FOR ME PELASE HELP ME PELASE HELP HELP",
+               "artist": "gab",
+               "link": "https://cdn.discordapp.com/attachments/1098048843901304934/1102152050441191424/my_fault_og.wav",
+               "winner": true
+            },
+            {
+               "title": "lil cuba",
+               "artist": "waymond",
+               "link": "https://cdn.discordapp.com/attachments/1098048843901304934/1102152204158259260/10_minute_beat_challenge.wav",
+               "winner": true
+            },
+            {
+               "title": "The_NewStuff2",
+               "artist": "purple guy",
+               "link": "https://cdn.discordapp.com/attachments/1098048843901304934/1102151978760552488/untitled.mp3",
+               "winner": false
+            },
+            {
+               "title": "cat",
+               "artist": "chiyeon",
+               "link": "https://cdn.discordapp.com/attachments/1098048843901304934/1102152343774044190/cat.mp3",
+               "winner": false
+            }
+         ]
+      },
+      {
+         "title": "3rd Beat Battle",
+         "date": "4/28/2023 - 4/29/2023",
+         "tracks": [
+            {
+               "title": "spicy ice",
+               "artist": "waymond",
+               "link": "https://tteok.art/songs/mystery.wav",
+               "winner": true
+            },
+            {
+               "title": "🧊🌶️",
+               "artist": "gab",
+               "link": "https://cdn.discordapp.com/attachments/754122270590500986/1102035369979023430/beatchallenge2.wav",
+               "winner": false
+            },
+            {
+               "title": "blackberry yerba",
+               "artist": "chiyeon",
+               "link": "https://tteok.art/songs/blackberry.wav",
+               "winner": false
+            }
+         ]
+      },
+      {
+         "title": "2nd Beat Battle",
+         "date": "4/21/2023 - 4/22/2023",
+         "tracks": [
+            {
+               "title": "fnaf type beat",
+               "artist": "gab",
+               "link": "https://cdn.discordapp.com/attachments/754122270590500986/1099557166127517757/fnaf_typebeat.wav",
+               "winner": true
+            },
+            {
+               "title": "fantasy and fun",
+               "artist": "chiyeon",
+               "link": "https://tteok.art/songs/fantasy_and_fun.wav",
+               "winner": true
+            },
+            {
+               "title": "alkjkhvozixcyvasdf",
+               "artist": "waymond",
+               "link": "https://waymondrang.com/beat/4-21%20beat%20challenge.wav",
+               "winner": false
+            },
+            {
+               "title": "Beat_submissio",
+               "artist": "purple guy",
+               "link": "https://cdn.discordapp.com/attachments/721048676486742046/1099563456425906206/Beat_submissio.mp3",
+               "winner": false
+            }
+         ]
+      },
+      {
+         "title": "1st Beat Battle",
+         "date": "4/14/2023 - 4/15/2023",
+         "tracks": [
+            {
+               "title": "20beat20challenge20final",
+               "artist": "waymond",
+               "link": "https://waymondrang.com/4-16%20beat%20challenge%20final.wav",
+               "winner": true
+            },
+            {
+               "title": "Entry of the Gaydiators",
+               "artist": "chiyeon",
+               "link": "https://tteok.art/songs/entryofthegaydiators.wav",
+               "winner": true
+            },
+            {
+               "title": "24 hour beat challenge final",
+               "artist": "tony",
+               "link": "https://cdn.discordapp.com/attachments/1097392956727640097/1097753693899726948/24_hour_beat_challenge_enter_the_gladiators.wav",
+               "winner": false
+            },
+            {
+               "title": "The_NewStuff",
+               "artist": "beatrice",
+               "link": "https://cdn.discordapp.com/attachments/1097392956727640097/1097752555481731186/the_NewStuff.mp3",
+               "winner": false
+            }
+         ]
+      }
+   ]
+}

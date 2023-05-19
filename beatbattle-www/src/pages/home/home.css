@@ -1,0 +1,60 @@
+main {
+   opacity: 1;
+}
+
+.process-box {
+   margin-left: auto;
+   width: fit-content;
+}
+
+.process-box .tag {
+   margin: auto;
+   margin-top: 30px;
+
+   cursor: pointer;
+
+   user-select: none;
+}
+
+.process-box .tag:active {
+   background-color: var(--color-light);
+}
+
+@media only screen and (max-width: 600px) {
+   .process h1 {
+      font-size: 2rem !important;
+   }
+
+   .process {
+      gap: 0 0.6rem !important;
+   }
+
+   .process-box {
+      margin: auto !important;
+   }
+
+   .process-box .process:first-child {
+      padding-left: 1.3rem;
+   }
+}
+
+.process {
+   display: flex;
+   gap: 0 1.25rem;
+   flex-wrap: wrap;
+
+   width: fit-content
+}
+
+.process h1 {
+   font-size: 3.5rem;
+   color: var(--color-normal);
+}
+
+.process .accent {
+   color: var(--color-accent);
+}
+
+.process .highlight {
+   color: var(--color-light);
+}
