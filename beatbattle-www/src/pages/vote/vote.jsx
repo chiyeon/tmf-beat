@@ -106,7 +106,7 @@ const Vote = () => {
 
       setRemainingTime(remainingTime => Math.floor((endTime + timeOffset - Date.now()) / 1000))
       setTimerInterval(setInterval(() => {
-         setRemainingTime(remainingTime => Math.floor((endTime + timeOffset - Date.now() + timeOffset) / 1000))
+         setRemainingTime(remainingTime => Math.floor((endTime + timeOffset - Date.now()) / 1000))
       }, 1000))
    }
 
