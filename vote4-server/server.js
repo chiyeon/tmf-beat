@@ -10,7 +10,7 @@ const server = require("http").createServer(app)
 const cors = require("cors")
 const body_parser = require("body-parser")
 // misc
-var end_time = process.env.END_TIME
+var end_time = 0
 const firebase = require("./firebase.js")
 var tracks, users
 
@@ -23,8 +23,10 @@ var tracks, users
  * in beatbattle/winners/data 
  */
 const set_winners = async () => {
-   end_time = null
+   end_time = 0
    let votes = await firebase.get_collection("votes")
+
+   if (!votes) return;
 
    let processed_votes = {}
    for (let i = 0; i < tracks.length; ++i) processed_votes[i] = 0
@@ -95,21 +97,19 @@ const on_vote_start = async (req, res) => {
       const request = {
          secret: req.body.secret,
          author: users[req.body.secret],
+         minutes: req.body.minutes
       }
 
       if (request.author === undefined) return res.status(400).json({ message: "Invalid Secret"})
       if (request.author !== "chiyeon") return res.status(400).json({ message: "You aren't admin!"})
+      if (request.minutes === undefined || request.minutes === 0) return res.status(400).json({ message: "Input a Vote Duration (minutes)!"})
 
       print("The vote is starting!")
-      end_time = Date.now() + (1000 * 60 * process.env.VOTE_LENGTH_MINUTES)
-      setTimeout(() => {
-         set_winners()
-         end_time = null
-      }, 1000 * 60 * process.env.VOTE_LENGTH_MINUTES)
+      end_time = Date.now() + (1000 * 60 * request.minutes)
 
       return res.status(200).json({ message: "Vote started!" })
    } catch  (e) {
-
+      print(e)
    }
 }
 
@@ -131,12 +131,14 @@ const on_vote_reset = async(req, res) => {
 
       end_time = 0
 
-      firebase.delete_doc_path("beatbattle/winners")
-      firebase.delete_collection("votes")
+      await firebase.delete_doc_path("beatbattle/winners")
+      await firebase.delete_collection("votes")
 
-      return res.status(200).json({ message: "reset complete!" })
+      print("Vote reset!")
+
+      return res.status(200).json({ message: "Reset Complete!" })
    } catch  (e) {
-
+      print(e)
    }
 }
 
@@ -149,7 +151,7 @@ const get_winners = async (req, res) => {
 }
 
 const get_tracks = async(req, res) => {
-   if (end_time != null) {
+   if (end_time != null && end_time != 0) {
       if (end_time < Date.now()) set_winners()
 
       res.json({

@@ -2,6 +2,7 @@ import "./vote.css"
 import { useEffect, useState } from "react"
 import axios from "axios"
 import NavBar from "../../components/navbar/navbar.jsx"
+import InputField from "../../components/InputField/inputfield.jsx"
 
 const Track = (track, on_click, index) => {
    return (
@@ -200,10 +201,11 @@ const Vote = () => {
                      <hr />
                   </span>
    
-                  <span className="form-element">
-                     <label className="tag" htmlFor="secret">Secret</label>
-                     <input id="secret" type="password" onInput={e => setSecret(e.target.value)}></input>
-                  </span>
+                  <InputField
+                     label="Secret"
+                     type="password"
+                     onInput={e => setSecret(e.target.value)}
+                  />
    
                   <button className="tag" onClick={(e) => { e.preventDefault(); send_vote()}}>Vote!</button>
                </span>
