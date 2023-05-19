@@ -23,6 +23,8 @@ const TracksBox = (event) => {
             <hr />
          </span>
 
+         {/*<p class="description">{event.description}</p>*/}
+
          {event.tracks.length > 0 ?
                <span>
                   {event.tracks.map(track => {
@@ -55,7 +57,7 @@ const Track = (track) => {
 
 const Listen = () => {
    return (
-      <main>
+      <main class="listen">
          <span className="site-title">
             <h1>listen</h1>
             <h1>2</h1>

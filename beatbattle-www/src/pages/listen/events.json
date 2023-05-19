@@ -1,34 +1,40 @@
 {
    "events": [
       {
-         "title": "5th Beat Battle",
+         "title": "Timbers are Shivered",
          "date": "5/12/2023 - 5/14/2023",
+         "description": "The 5th ever beat battle, and the first to span 48 hours total!",
          "tracks": [
+            {
+               "title": "peach mango body armor lyte",
+               "artist": "chiyeon",
+               "link": "https://cdn.discordapp.com/attachments/593321136335355934/1107548756611702846/peachmangobodyarmorlyte.mp3",
+               "winner": true
+            },
             {
                "title": "im sowy timby >_<",
                "artist": "gab",
-               "link": "https://cdn.discordapp.com/attachments/754122270590500986/1107533089678295120/eapogusd8igjs.wav"
+               "link": "https://cdn.discordapp.com/attachments/754122270590500986/1107533089678295120/eapogusd8igjs.wav",
+               "winner": false
             },
             {
                "title": "igloo",
                "artist": "purple guy",
-               "link": "https://cdn.discordapp.com/attachments/1098048843901304934/1107543828153499678/igloo.mp3"
-            },
-            {
-               "title": "peach mango body armor lyte",
-               "artist": "chiyeon",
-               "link": "https://cdn.discordapp.com/attachments/593321136335355934/1107548756611702846/peachmangobodyarmorlyte.mp3"
+               "link": "https://cdn.discordapp.com/attachments/1098048843901304934/1107543828153499678/igloo.mp3",
+               "winner": false
             },
             {
                "title": "SOS HELP RESCUE I NEED HELP PLEASE RESCUE ME",
                "artist": "waymond",
-               "link": "https://cdn.discordapp.com/attachments/222509622576021504/1107548339098095687/5-14_beat_challenge.wav"
+               "link": "https://cdn.discordapp.com/attachments/222509622576021504/1107548339098095687/5-14_beat_challenge.wav",
+               "winner": false
             }
          ]
       },
       {
-         "title": "4th Beat Battle",
+         "title": "shockwaves",
          "date": "5/5/2023 - 5/6/2023",
+         "description": "The 4th beat battle had but one singular contestant.",
          "tracks": [
             {
                "title": "shockwaves",
@@ -41,6 +47,7 @@
       {
          "title": "10 Minute Beat Challenge",
          "date": "4/30/2023",
+         "description": "All these beats were made in a mere 10 minutes!",
          "tracks": [
             {
                "title": "HELPH HELPHLEHLEPH HELPHELP HELP HELPHELP HELP HELPHELPH HELPHLEHLEPH HELPHELP HELP HELPHELP HELP HELP VOTE FOR ME PELASE HELP ME PELASE HELP HELP",
@@ -69,8 +76,9 @@
          ]
       },
       {
-         "title": "3rd Beat Battle",
+         "title": "Battle on the Ice",
          "date": "4/28/2023 - 4/29/2023",
+         "description": "The third beat battle spanned a 24 hour period",
          "tracks": [
             {
                "title": "spicy ice",
@@ -93,7 +101,7 @@
          ]
       },
       {
-         "title": "2nd Beat Battle",
+         "title": "Freddy Fazbear's Beat Emporium",
          "date": "4/21/2023 - 4/22/2023",
          "tracks": [
             {
@@ -123,7 +131,7 @@
          ]
       },
       {
-         "title": "1st Beat Battle",
+         "title": "1st Beat Challenge",
          "date": "4/14/2023 - 4/15/2023",
          "tracks": [
             {

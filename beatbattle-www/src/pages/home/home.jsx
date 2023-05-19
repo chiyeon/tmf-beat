@@ -10,8 +10,8 @@ const Home = () => {
    return (
       <main>
          <span className="site-title">
-            <h1>that my favorite</h1>
-            <h1>beat</h1>
+            <h1>thatmy</h1>
+            <h1>fav</h1>
          </span>
 
          <NavBar />

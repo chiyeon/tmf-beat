@@ -32,4 +32,11 @@
    flex: 1.33;
 }
 
+.listen hr {
+   margin-bottom: 20px;
+}
 
+.event-tracks-box .description {
+   margin: 0;
+   margin-bottom: 20px;
+}
