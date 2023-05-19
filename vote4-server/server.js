@@ -57,7 +57,7 @@ const set_winners = async () => {
       }
    })
 
-   firebase.set_doc_path("beatbattle/winners", {
+   await firebase.set_doc_path("beatbattle/winners", {
       data: winners
    })
 
@@ -128,6 +128,8 @@ const on_vote_reset = async(req, res) => {
 
       if (request.author === undefined) return res.status(400).json({ message: "Invalid Secret"})
       if (request.author !== "chiyeon") return res.status(400).json({ message: "You aren't admin!"})
+
+      end_time = 0
 
       firebase.delete_doc_path("beatbattle/winners")
       firebase.delete_collection("votes")
