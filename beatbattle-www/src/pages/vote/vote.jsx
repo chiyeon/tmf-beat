@@ -49,6 +49,15 @@ const Vote = () => {
 
          setTracks(data)
 
+         let now = (await axios({
+            method: "get",
+            url: process.env.REACT_APP_SERVER_URL + "/time-now",
+            responseType: "json"
+         })).data.time
+         if (now && now != 0) setTimeOffset(Date.now() - now)
+
+         // set end time after setting now...
+         // start_timer is triggered by change in end time !!!
          let end_time = (await axios({
             method: "get",
             url: process.env.REACT_APP_SERVER_URL + "/time",
@@ -56,14 +65,6 @@ const Vote = () => {
          })).data.time
          
          setEndTime(end_time)
-
-         let now = (await axios({
-            method: "get",
-            url: process.env.REACT_APP_SERVER_URL + "/time-now",
-            responseType: "json"
-         })).data.time
-         
-         if (now && now != 0) setTimeOffset(now - Date.now())
 
          let _winners = (await axios({
             method: "get",
@@ -103,9 +104,9 @@ const Vote = () => {
    const start_timer = () => {
       if (timerInterval) stop_timer()
 
-      setRemainingTime(remainingTime => Math.floor((endTime - Date.now() + timeOffset) / 1000))
+      setRemainingTime(remainingTime => Math.floor((endTime + timeOffset - Date.now()) / 1000))
       setTimerInterval(setInterval(() => {
-         setRemainingTime(remainingTime => Math.floor((endTime - Date.now() + timeOffset) / 1000))
+         setRemainingTime(remainingTime => Math.floor((endTime + timeOffset - Date.now() + timeOffset) / 1000))
       }, 1000))
    }
 
