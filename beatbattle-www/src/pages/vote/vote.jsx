@@ -32,6 +32,7 @@ const Vote = () => {
    const [secret, setSecret] = useState("")
    const [remainingTime, setRemainingTime] = useState(0)
    const [endTime, setEndTime] = useState(0)
+   const [timeOffset, setTimeOffset] = useState(0)
    const [winners, setWinners] = useState(null)
 
    const [messageInterval, setMessageInterval] = useState(null)
@@ -56,6 +57,13 @@ const Vote = () => {
          
          setEndTime(end_time)
 
+         let now = (await axios({
+            method: "get",
+            url: process.env.REACT_APP_SERVER_URL + "/time-now",
+            responseType: "json"
+         })).data.time
+         
+         if (now && now != 0) setTimeOffset(now - Date.now())
 
          let _winners = (await axios({
             method: "get",
@@ -95,9 +103,9 @@ const Vote = () => {
    const start_timer = () => {
       if (timerInterval) stop_timer()
 
-      setRemainingTime(remainingTime => Math.floor((endTime - Date.now()) / 1000))
+      setRemainingTime(remainingTime => Math.floor((endTime - Date.now() + timeOffset) / 1000))
       setTimerInterval(setInterval(() => {
-         setRemainingTime(remainingTime => Math.floor((endTime - Date.now()) / 1000))
+         setRemainingTime(remainingTime => Math.floor((endTime - Date.now() + timeOffset) / 1000))
       }, 1000))
    }
 

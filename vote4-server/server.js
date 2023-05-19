@@ -11,6 +11,7 @@ const cors = require("cors")
 const body_parser = require("body-parser")
 // misc
 var end_time = 0
+var start_time = 0
 const firebase = require("./firebase.js")
 var tracks, users
 
@@ -24,6 +25,7 @@ var tracks, users
  */
 const set_winners = async () => {
    end_time = 0
+   start_time = 0
    let votes = await firebase.get_collection("votes")
 
    if (!votes) return;
@@ -105,7 +107,8 @@ const on_vote_start = async (req, res) => {
       if (request.minutes === undefined || request.minutes === 0) return res.status(400).json({ message: "Input a Vote Duration (minutes)!"})
 
       print("The vote is starting!")
-      end_time = Date.now() + (1000 * 60 * request.minutes)
+      start_time = Date.now()
+      end_time = start_time + (1000 * 60 * request.minutes)
 
       return res.status(200).json({ message: "Vote started!" })
    } catch  (e) {
@@ -187,6 +190,7 @@ app.post("/reset", on_vote_reset)
 app.get("/winners", get_winners)
 app.get("/tracks", get_tracks)
 app.get("/time", async (req, res) => { res.json({ time: end_time }) })
+app.get("/time-now", async (req, res) => { res.json({ time: Date.now() })})
 
 module.exports = {
    start: start
