@@ -26,5 +26,3 @@ yarn-error.log*
 .firebase/
 .firebase/hosting.*
 firebase-debug.log
-
-.env

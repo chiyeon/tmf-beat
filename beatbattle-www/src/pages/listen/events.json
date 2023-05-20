@@ -1,6 +1,43 @@
 {
    "events": [
       {
+         "title": "You Smell Like You Farted",
+         "date": "5/19/2023",
+         "description": "",
+         "tracks": [
+            {
+               "title": "wetfart",
+               "artist": "fred bear",
+               "link": "https://cdn.discordapp.com/attachments/1098048843901304934/1109357927363518564/wetfart.mp3",
+               "winner": false
+            },
+            {
+               "title": "justin toilet",
+               "artist": "chiyeon",
+               "link": "https://cdn.discordapp.com/attachments/1098048843901304934/1109358034150510612/fart10minutes.mp3",
+               "winner": false
+            },
+            {
+               "title": "fart synth",
+               "artist": "waymond",
+               "link": "https://cdn.discordapp.com/attachments/1098048843901304934/1109358276396732426/10_minute_beat_challenge_5-19.wav",
+               "winner": false
+            },
+            {
+               "title": "yeat type beat",
+               "artist": "@black",
+               "link": "https://cdn.discordapp.com/attachments/1098048843901304934/1109359279376437329/reverbfart10minute_yeat_type_beat.wav",
+               "winner": false
+            },
+            {
+               "title": "strawberry shortcake",
+               "artist": "gab",
+               "link": "https://cdn.discordapp.com/attachments/1098048843901304934/1109359928021360670/aaaaaaaaaaaaaaaaaaa.wav",
+               "winner": false
+            }
+         ]
+      },
+      {
          "title": "Timbers are Shivered",
          "date": "5/12/2023 - 5/14/2023",
          "description": "The 5th ever beat battle, and the first to span 48 hours total!",
