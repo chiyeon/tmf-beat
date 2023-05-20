@@ -157,6 +157,8 @@ const get_tracks = async(req, res) => {
    if (end_time != null && end_time != 0) {
       if (end_time < Date.now()) set_winners()
 
+      tracks = (await firebase.get_doc_path("beatbattle/tracks")).data
+
       res.json({
          tracks
       })
