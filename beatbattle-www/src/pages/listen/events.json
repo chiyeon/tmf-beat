@@ -6,6 +6,12 @@
          "description": "",
          "tracks": [
             {
+               "title": "fart synth",
+               "artist": "waymond",
+               "link": "https://cdn.discordapp.com/attachments/1098048843901304934/1109358276396732426/10_minute_beat_challenge_5-19.wav",
+               "winner": true
+            },
+            {
                "title": "wetfart",
                "artist": "fred bear",
                "link": "https://cdn.discordapp.com/attachments/1098048843901304934/1109357927363518564/wetfart.mp3",
@@ -15,12 +21,6 @@
                "title": "justin toilet",
                "artist": "chiyeon",
                "link": "https://cdn.discordapp.com/attachments/1098048843901304934/1109358034150510612/fart10minutes.mp3",
-               "winner": false
-            },
-            {
-               "title": "fart synth",
-               "artist": "waymond",
-               "link": "https://cdn.discordapp.com/attachments/1098048843901304934/1109358276396732426/10_minute_beat_challenge_5-19.wav",
                "winner": false
             },
             {
