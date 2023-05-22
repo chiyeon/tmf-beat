@@ -1,6 +1,43 @@
 {
    "events": [
       {
+         "title": "The Fye Week",
+         "date": "5/19/2023 - 5/21/2023",
+         "description": "",
+         "tracks": [
+            {
+               "title": "birds don't just fly away",
+               "artist": "chiyeon",
+               "link": "https://tteok.art/songs/birds_dont_just_fly.mp3",
+               "winner": true
+            },
+            {
+               "title": "chiyeon type beat",
+               "artist": "waymond",
+               "link": "https://cdn.discordapp.com/attachments/1098048843901304934/1110053721334874132/chiyeon_type_beat.mp3",
+               "winner": false
+            },
+            {
+               "title": "box in a box",
+               "artist": "@black",
+               "link": "https://cdn.discordapp.com/attachments/1098048843901304934/1110053889643921418/48_hour_beat_challenge.wav",
+               "winner": false
+            },
+            {
+               "title": "glittaboy type beat",
+               "artist": "gab",
+               "link": "https://cdn.discordapp.com/attachments/1098048843901304934/1110054433695473664/tisticky.wav",
+               "winner": false
+            },
+            {
+               "title": "mytipsticky",
+               "artist": "fred bear",
+               "link": "https://cdn.discordapp.com/attachments/721048676486742046/1110061040361799701/mytipsticky.wav",
+               "winner": false
+            }
+         ]
+      },
+      {
          "title": "open da noor",
          "date": "5/19/2023",
          "description": "",
