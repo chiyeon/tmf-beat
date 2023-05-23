@@ -30,7 +30,7 @@ const get_collection = async (collection_name) => {
    let output = {}
 
    q_snap.forEach(doc => {
-      output[doc.id] = doc.data().target
+      output[doc.id] = doc.data()
    })
 
    return output

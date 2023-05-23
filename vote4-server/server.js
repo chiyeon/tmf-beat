@@ -13,7 +13,7 @@ const body_parser = require("body-parser")
 var end_time = 0
 var start_time = 0
 const firebase = require("./firebase.js")
-var tracks, users
+var users
 
 /*
  * FUNCTIONS
@@ -27,6 +27,8 @@ const set_winners = async () => {
    end_time = 0
    start_time = 0
    let votes = await firebase.get_collection("votes")
+   let events = Object.values(await firebase.get_collection("events"))
+   let tracks = events[events.length - 1].tracks
 
    if (!votes) return;
 
@@ -34,7 +36,7 @@ const set_winners = async () => {
    for (let i = 0; i < tracks.length; ++i) processed_votes[i] = 0
 
    Object.keys(votes).forEach(vote_author => {
-      processed_votes[votes[vote_author]]++;
+      processed_votes[votes[vote_author].target]++;
    })
 
    let winners = Object.keys(processed_votes).map(
@@ -70,6 +72,10 @@ const set_winners = async () => {
 
 const on_vote = async (req, res) => {
    try {
+      let events = Object.values(await firebase.get_collection("events"))
+      let tracks = events[events.length - 1].tracks
+      let users = await firebase.get_doc_path("beatbattle/users")
+
       const vote = {
          secret: req.body.secret,
          target: parseInt(req.body.target),
@@ -96,6 +102,8 @@ const on_vote = async (req, res) => {
 
 const on_vote_start = async (req, res) => {
    try {
+      let users = await firebase.get_doc_path("beatbattle/users")
+
       const request = {
          secret: req.body.secret,
          author: users[req.body.secret],
@@ -124,6 +132,8 @@ const on_vote_start = async (req, res) => {
  */
 const on_vote_reset = async(req, res) => {
    try {
+      let users = await firebase.get_doc_path("beatbattle/users")
+
       const request = {
          secret: req.body.secret,
          author: users[req.body.secret],
@@ -157,7 +167,8 @@ const get_tracks = async(req, res) => {
    if (end_time != null && end_time != 0) {
       if (end_time < Date.now()) set_winners()
 
-      tracks = (await firebase.get_doc_path("beatbattle/tracks")).data
+      let events = Object.values(await firebase.get_collection("events"))
+      let tracks = events[events.length - 1].tracks
 
       res.json({
          tracks
@@ -169,15 +180,18 @@ const get_tracks = async(req, res) => {
    }
 }
 
+const get_events = async(req, res) => {
+   let events = Object.values(await firebase.get_collection("events"))
+   
+   res.json({
+      events: events
+   })
+}
+
 const start = (port) => {
    server.listen(port, async () => {
       print("Voting server started on port " + port)
 
-      tracks = (await firebase.get_doc_path("beatbattle/tracks")).data
-      users = await firebase.get_doc_path("beatbattle/users")
-
-      if (!users || !tracks) return print("ERROR: Users/Tracks could not be loaded! (Firebase may not be connected)")
-      
       if (end_time && Date.now() < end_time) print("Voting is still going!")
    })
 }
@@ -191,6 +205,7 @@ app.post("/reset", on_vote_reset)
 
 app.get("/winners", get_winners)
 app.get("/tracks", get_tracks)
+app.get("/events", get_events)
 app.get("/time", async (req, res) => { res.json({ time: end_time }) })
 app.get("/time-now", async (req, res) => { res.json({ time: Date.now() })})
 
