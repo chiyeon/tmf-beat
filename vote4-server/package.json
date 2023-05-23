@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --watch data/winners.json index.js"
+    "start": "nodemon index.js"
   },
   "author": "chiyeon",
   "license": "ISC",

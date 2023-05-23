@@ -87,7 +87,7 @@ const Listen = () => {
 
          <NavBar />
 
-         { events.length === []
+         { events.length === 0
             ? (<center><div className="tag">Loading...</div></center>)
             : events.map(event => { return TracksBox(event) })
          }
