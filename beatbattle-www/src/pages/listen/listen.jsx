@@ -1,17 +1,12 @@
 import "./listen.css"
 import NavBar from "../../components/navbar/navbar.jsx"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
+import axios from "axios"
 
-const events = require("./events.json").events
-
+/*
+ * Container for each event. Has a title at the top & list of tracks
+ */
 const TracksBox = (event) => {
-   useEffect(() => {
-      if (window.chrome)
-         document.querySelectorAll("audio").forEach(e => {
-            e.classList.add("chrome-audio")
-         })
-   })
-   
    return (
       <div 
       className="event-tracks-box"
@@ -40,6 +35,9 @@ const TracksBox = (event) => {
    )
 }
 
+/*
+ * one singular track, inside a track box
+ */
 const Track = (track) => {
    return (
       <div className="track" key={track.artist}>
@@ -55,9 +53,33 @@ const Track = (track) => {
    )
 }
 
+/*
+ * main page
+ */
 const Listen = () => {
+   const [events, setEvents] = useState([])
+
+   useEffect(() => {
+      if (window.chrome)
+         document.querySelectorAll("audio").forEach(e => {
+            e.classList.add("chrome-audio")
+         })
+      
+      const fetchData = async () => {
+         let data = (await axios({
+            method: "get",
+            url: process.env.REACT_APP_SERVER_URL + "/events",
+            responseType: "json"
+         })).data.events.reverse()
+
+         setEvents(data)
+      }
+
+      fetchData()
+   })
+
    return (
-      <main class="listen">
+      <main className="listen">
          <span className="site-title">
             <h1>listen</h1>
             <h1>2</h1>
@@ -65,9 +87,10 @@ const Listen = () => {
 
          <NavBar />
 
-         {events.map(event => {
-            return TracksBox(event)
-         })}
+         { events.length === []
+            ? (<center><div className="tag">Loading...</div></center>)
+            : events.map(event => { return TracksBox(event) })
+         }
       </main>
    )
 }
