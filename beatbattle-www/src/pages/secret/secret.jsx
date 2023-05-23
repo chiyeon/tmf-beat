@@ -172,18 +172,29 @@ const Secret = () => {
 
          <NavBar />
 
-         <center><p><i>That my Favorite!</i></p></center>
+         <center class="secret-input" >
+            <InputField type="password" label="Secret" onInput={e => setSecret(e.target.value)} />
+            <p><i>That my Favorite!</i></p>
+         </center>
 
          <div className="admin-box">
-            <InputField type="password" label="Secret" onInput={e => setSecret(e.target.value)} />
-            <h2>Vote Controls</h2>
-            <InputField type="text" label="Vote Duration" onInput={e => setMinutes(parseFloat(e.target.value))} />
-            <button onClick={() => start_vote()} className="tag start-button">Start</button>
-            <button onClick={() => reset()} className="tag start-button">Reset</button>
 
-            <div className="new-event">
-               <h2>New Event</h2>
-               <button onClick={() => new_track()} className="tag start-button">New Track</button>
+            <div className="category">
+               <span className="title">
+                  <h2>Vote Controls</h2>
+                  <hr />
+               </span>
+               <button onClick={() => start_vote()} className="tag start-button">Start</button>
+               <button onClick={() => reset()} className="tag start-button">Reset</button>
+               <InputField type="text" label="Vote Duration" onInput={e => setMinutes(parseFloat(e.target.value))} />
+            </div>
+
+            <div className="category">
+               <span className="title">
+                  <h2>Create New Event</h2>
+                  <hr />
+               </span>
+            <button onClick={() => new_track()} className="tag start-button">New Track</button>
                <button onClick={() => post_tracks()} className="tag start-button">Upload</button>
                <InputField type="text" label="Title" onInput={e => setTitle(e.target.value)} />
                <InputField type="text" label="Date" onInput={e => setDate(e.target.value)} />
