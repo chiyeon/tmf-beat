@@ -124,7 +124,34 @@ const on_vote_start = async (req, res) => {
    }
 }
 
-/*
+const on_new_event = async (req, res) => {
+   try {
+      let users = await firebase.get_doc_path("beatbattle/users")
+
+      const request = {
+         secret: req.body.secret,
+         author: users[req.body.secret],
+         event: req.body.event
+      }
+
+      if (request.author === undefined) return res.status(400).json({ message: "Invalid Secret"})
+      if (request.author !== "chiyeon") return res.status(400).json({ message: "You aren't admin!"})
+
+      if (request.event.title == "") return res.status(400).json({ message: "Title is empty!" })
+      if (request.event.date == "") return res.status(400).json({ message: "Date is empty!" })
+      if (request.event.tracks.length == 0) return res.status(400).json({ message: "No track data!" })
+
+      // feel like this is bad...
+      let events = Object.keys(await firebase.get_collection("events"))
+      await firebase.set_doc("events", events.length.toString(), request.event)
+
+      return res.status(200).json({ message: "Event Uploaded!" })
+   } catch  (e) {
+      print(e)
+   }
+}
+
+/* BELOW IS NOT TRUE ANYMORE. SAVING JUST IN CASE
  * Been having trouble getting this to work in prod, but heres what you do:
  * delete all the winners in the winners document in firebase, but LEAVE TEH DATA ARRAY empty
  * then delete the votes collect//ion entirely
@@ -202,6 +229,7 @@ app.use(body_parser.json())
 app.post("/vote", on_vote)
 app.post("/start", on_vote_start)
 app.post("/reset", on_vote_reset)
+app.post("/new-event", on_new_event)
 
 app.get("/winners", get_winners)
 app.get("/tracks", get_tracks)
