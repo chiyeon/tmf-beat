@@ -13,7 +13,12 @@ const body_parser = require("body-parser")
 var end_time = 0
 var start_time = 0
 const firebase = require("./firebase.js")
-var users
+// we cache a copy of events to make it quick to load
+// on the listen page. is updated whenever the firebase updates.
+// we also hold onto users.
+// both of these will dynamically update with the firebase
+var users, events
+
 
 /*
  * FUNCTIONS
@@ -27,8 +32,8 @@ const set_winners = async () => {
    end_time = 0
    start_time = 0
    let votes = await firebase.get_collection("votes")
-   let events = Object.values(await firebase.get_collection("events"))
-   let tracks = events[events.length - 1].tracks
+   let events_values = Object.values(events)
+   let tracks = events_values[events_values.length - 1].tracks
 
    if (!votes) return;
 
@@ -72,8 +77,8 @@ const set_winners = async () => {
 
 const on_vote = async (req, res) => {
    try {
-      let events = Object.values(await firebase.get_collection("events"))
-      let tracks = events[events.length - 1].tracks
+      let events_values = Object.values(events)
+      let tracks = events_values[events_values.length - 1].tracks
       let users = await firebase.get_doc_path("beatbattle/users")
 
       const vote = {
@@ -142,8 +147,8 @@ const on_new_event = async (req, res) => {
       if (request.event.tracks.length == 0) return res.status(400).json({ message: "No track data!" })
 
       // feel like this is bad...
-      let events = Object.keys(await firebase.get_collection("events"))
-      await firebase.set_doc("events", events.length.toString(), request.event)
+      let events_length = Object.keys(events).length
+      await firebase.set_doc("events", events_length.toString(), request.event)
 
       return res.status(200).json({ message: "Event Uploaded!" })
    } catch  (e) {
@@ -194,8 +199,8 @@ const get_tracks = async(req, res) => {
    if (end_time != null && end_time != 0) {
       if (end_time < Date.now()) set_winners()
 
-      let events = Object.values(await firebase.get_collection("events"))
-      let tracks = events[events.length - 1].tracks
+      let events_values = Object.values(events)
+      let tracks = events_values[events_values.length - 1].tracks
 
       res.json({
          tracks
@@ -208,21 +213,37 @@ const get_tracks = async(req, res) => {
 }
 
 const get_events = async(req, res) => {
-   let events = Object.values(await firebase.get_collection("events"))
-   
+   let events_values = Object.values(events)
+
    res.json({
-      events: events
+      events: events_values
    })
 }
 
 const start = (port) => {
    server.listen(port, async () => {
-      print("Voting server started on port " + port)
+      
+      // keeps our cached events up to date with current version on db
+      firebase.setup_collection_listener("events", (_events) => {
+         events = _events
+         print("Pulled latest 'events' from db")
+      })
+      print("Listening for changes in events collection")
 
+      // keep users up to date
+      firebase.setup_document_listener_path("beatbattle/users", (_users) => {
+         users = _users
+         print("Pulled latest 'users' from db")
+      })
+      print("Listening for changes in users document")
+
+
+      print("Voting server started on port " + port)
       if (end_time && Date.now() < end_time) print("Voting is still going!")
    })
 }
 
+// setup web server
 app.use(cors({ origin: [process.env.CLIENT_IP] }))
 app.use(body_parser.json())
 
