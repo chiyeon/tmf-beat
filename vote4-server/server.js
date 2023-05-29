@@ -17,7 +17,7 @@ const firebase = require("./firebase.js")
 // on the listen page. is updated whenever the firebase updates.
 // we also hold onto users.
 // both of these will dynamically update with the firebase
-var users, events
+var users, events, tracks, current_event_id
 
 
 /*
@@ -32,8 +32,6 @@ const set_winners = async () => {
    end_time = 0
    start_time = 0
    let votes = await firebase.get_collection("votes")
-   let events_values = Object.values(events)
-   let tracks = events_values[events_values.length - 1].tracks
 
    if (!votes) return;
 
@@ -53,7 +51,8 @@ const set_winners = async () => {
             "title": tracks[key].title,
             "winner": false,
             "votes": processed_votes[_key],
-            "totalVotes": Object.keys(votes).length
+            "totalVotes": Object.keys(votes).length,
+            "index": key
          }
       }
    )
@@ -61,11 +60,18 @@ const set_winners = async () => {
    winners.sort((a, b) => b.votes - a.votes)
 
    let winning_vote = winners[0].votes
+   let new_tracks = [...tracks]
 
    winners.forEach(winner => {
       if (winner.votes >= winning_vote) {
          winner.winner = true
+         new_tracks[winner.index].winner = true;
       }
+   })
+
+   // update winners in firebase db
+   firebase.update_doc("events", current_event_id, {
+      tracks: new_tracks
    })
 
    await firebase.set_doc_path("beatbattle/winners", {
@@ -79,7 +85,6 @@ const on_vote = async (req, res) => {
    try {
       let events_values = Object.values(events)
       let tracks = events_values[events_values.length - 1].tracks
-      let users = await firebase.get_doc_path("beatbattle/users")
 
       const vote = {
          secret: req.body.secret,
@@ -107,8 +112,6 @@ const on_vote = async (req, res) => {
 
 const on_vote_start = async (req, res) => {
    try {
-      let users = await firebase.get_doc_path("beatbattle/users")
-
       const request = {
          secret: req.body.secret,
          author: users[req.body.secret],
@@ -131,8 +134,6 @@ const on_vote_start = async (req, res) => {
 
 const on_new_event = async (req, res) => {
    try {
-      let users = await firebase.get_doc_path("beatbattle/users")
-
       const request = {
          secret: req.body.secret,
          author: users[req.body.secret],
@@ -146,7 +147,6 @@ const on_new_event = async (req, res) => {
       if (request.event.date == "") return res.status(400).json({ message: "Date is empty!" })
       if (request.event.tracks.length == 0) return res.status(400).json({ message: "No track data!" })
 
-      // feel like this is bad...
       let events_length = Object.keys(events).length
       await firebase.set_doc("events", events_length.toString(), request.event)
 
@@ -164,8 +164,6 @@ const on_new_event = async (req, res) => {
  */
 const on_vote_reset = async(req, res) => {
    try {
-      let users = await firebase.get_doc_path("beatbattle/users")
-
       const request = {
          secret: req.body.secret,
          author: users[req.body.secret],
@@ -199,9 +197,6 @@ const get_tracks = async(req, res) => {
    if (end_time != null && end_time != 0) {
       if (end_time < Date.now()) set_winners()
 
-      let events_values = Object.values(events)
-      let tracks = events_values[events_values.length - 1].tracks
-
       res.json({
          tracks
       })
@@ -226,6 +221,11 @@ const start = (port) => {
       // keeps our cached events up to date with current version on db
       firebase.setup_collection_listener("events", (_events) => {
          events = _events
+
+         let events_values = Object.values(events)
+         tracks = events_values[events_values.length - 1].tracks
+         current_event_id = (events_values.length - 1).toString()
+
          print("Pulled latest 'events' from db")
       })
       print("Listening for changes in events collection")

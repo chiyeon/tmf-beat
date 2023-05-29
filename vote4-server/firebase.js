@@ -6,7 +6,7 @@ require('dotenv').config()
 const { print } = require("./utils.js")
 
 const { initializeApp } = require("firebase/app")
-const { getFirestore, doc, setDoc, getDoc, query, collection, getDocs, deleteDoc, onSnapshot } = require("firebase/firestore")
+const { getFirestore, doc, setDoc, getDoc, query, collection, getDocs, deleteDoc, onSnapshot, updateDoc } = require("firebase/firestore")
 
 const firebaseConfig = JSON.parse(process.env.FIREBASE_CONFIG)
 const firebase_app = initializeApp(firebaseConfig)
@@ -78,6 +78,28 @@ const get_doc = async (col_name, doc_name) => {
 const get_doc_path = async(path) => {
    let path_split = path.split("/")
    return get_doc(path_split[0], path_split[1])
+}
+
+/**
+ * Updates data of a target document
+ * @param   {String} col_name Name of Firebase Collection
+ * @param   {String} doc_name ID of Firebase Document
+ * @param {Object} data       New data to set
+ * @returns {Object}          Firebase Document Data
+ */
+const update_doc = async (col_name, doc_name, data) => {
+   await updateDoc(doc(db, col_name, doc_name), data)
+}
+
+/**
+ * Updates data of target document
+ * @param   {String} path Target Path (Collection/document)
+ * @param {Object} data       New data to set
+ * @returns {Object}          Firebase Document Data
+ */
+const update_doc_path = async(path, data) => {
+   let path_split = path.split("/")
+   return update_doc(path_split[0], path_split[1])
 }
 
 /**
@@ -167,6 +189,8 @@ module.exports = {
    set_doc_path,
    get_doc,
    get_doc_path,
+   update_doc,
+   update_doc_path,
    delete_doc,
    delete_doc_path,
    setup_collection_listener,
