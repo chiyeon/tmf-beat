@@ -143,15 +143,6 @@ const Listen = () => {
       }
    }, [ events ])
 
-   useEffect(() => {
-      if (filter.length == 0) {
-         setDisplayEvents(events)
-         return;
-      }
-
-      update_display_events_from_filter()
-   }, [filter])
-
    return (
       <main className="listen">
          <span className="site-title">
