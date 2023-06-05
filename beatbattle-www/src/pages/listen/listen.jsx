@@ -45,7 +45,15 @@ const Track = (track) => {
             {track.winner ? <div className="tag">winner</div> : ''}
             <p>{track.artist} - <strong>{track.title}</strong></p>
          </span>
-         <audio className="audio" controls>
+         <audio
+            className="audio"
+            onPlay={(e) => {
+               document.querySelectorAll("audio").forEach(a => {
+                  if (a != e.target) a.pause()
+               })
+            }}
+            controls
+         >
             <source src={track.link} />
             Your browser does not support the audio element.
          </audio>
