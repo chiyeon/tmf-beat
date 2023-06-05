@@ -67,8 +67,77 @@ const Track = (track) => {
 const Listen = () => {
    const [events, setEvents] = useState([])                 // copy of events data
    const [displayEvents, setDisplayEvents] = useState([])   // events to display
-   const [filter, _setFilter] = useState([]) // our current filter for names
+   const [nameFilter, setNameFilter] = useState([]) // our current filter for names
+   const [timeFilter, setTimeFilter] = useState([])
    const [winnersFilter, setWinnersFilter] = useState(false)
+
+   const [showFilter, setShowFilter] = useState(false)
+
+   const update_display_events = () => {
+      // basic case: no filters!
+      if (nameFilter.length == 0 && !winnersFilter && timeFilter.length == 0) {
+         setDisplayEvents(events)
+      } else {
+         let filtered_events = [];
+
+         events.forEach(event => {
+            // skip if not in time filter
+            if (timeFilter.length != 0 && !timeFilter.includes(event.time)) return
+
+            // then filter tracks based on winner/name
+            let filtered_tracks = event.tracks.filter(t => 
+                  (nameFilter.length != 0 ? nameFilter.includes(t.artist) : true)
+               && (winnersFilter ? t.winner : true)
+            )
+
+            if (filtered_tracks.length != 0) {
+               // only if we have valid tracks in the event do we make a deep copy
+               let filtered_event = {...event}
+               filtered_event.tracks = filtered_tracks
+               filtered_events.push(filtered_event)
+            }
+         })
+
+         setDisplayEvents(filtered_events)
+      }
+   }
+
+   const resetFilter = () => {
+      document.querySelectorAll(".filter").forEach(e => {
+         e.classList.remove("selected")
+      })
+
+      setNameFilter([])
+      setTimeFilter([])
+      setWinnersFilter(false)
+   }
+
+   // toggles target filter on/off.
+   const toggleNameFilter = (target, _filter) => {
+      // check if we are removing a filter from our search
+      if (nameFilter.includes(_filter[0])) {
+         if (target) target.classList.remove("selected")
+         setNameFilter(nameFilter.filter(f => !_filter.includes(f)))
+      } else {
+         if (target) target.classList.add("selected")
+         setNameFilter(nameFilter.concat(_filter))
+      }
+   }
+
+   const toggleTimeFilter = (target, _time) => {
+      if (timeFilter.includes(_time)) {
+         if (target) target.classList.remove("selected")
+         setTimeFilter(timeFilter.filter(t => t != _time))
+      } else {
+         if (target) target.classList.add("selected")
+         setTimeFilter([...timeFilter, _time])
+      }
+   }
+
+   const toggleWinnersFilter = (target) => {
+      if (target) winnersFilter ? target.classList.remove("selected") : target.classList.add("selected")
+      setWinnersFilter(!winnersFilter)
+   }
 
    useEffect(() => {
       if (window.chrome)
@@ -83,65 +152,15 @@ const Listen = () => {
             responseType: "json"
          })).data.events.reverse()
 
-         setEvents(data)
+         if (events != data) setEvents(data)
       }
-
+      
       fetchData()
-   })
-
-   // toggles target filter on/off.
-   const toggleNameFilter = (target, _filter) => {
-      // check if we are removing a filter from our search
-      if (filter.includes(_filter[0])) {
-         if (target) target.classList.remove("selected")
-         _setFilter(filter.filter(f => !_filter.includes(f)))
-      } else {
-      if (target) target.classList.add("selected")
-         _setFilter(filter.concat(_filter))
-      }
-   }
-
-   const resetNameFilter = () => {
-      document.querySelectorAll(".name-filter .filter").forEach(e => {
-         e.classList.remove("selected")
-      })
-
-      _setFilter([])
-   }
-
-   const update_display_events_from_filter = () => {
-      let filtered_events = [];
-
-      [...events].forEach(event => {
-         let filtered_event = event;
-         filtered_event.tracks = filtered_event.tracks.filter(t => filter.includes(t.artist))
-         if (filtered_event.tracks.length != 0)
-            filtered_events.push(filtered_event)
-      })
-
-      setDisplayEvents(filtered_events)
-   }
-
-   const toggleWinnersFilter = (target) => {
-      if (target) winnersFilter ? target.classList.remove("selected") : target.classList.remove("add")
-
-      setWinnersFilter(!winnersFilter)
-   }
-
-   const resetWinnersFilter = () => {
-      document.querySelectorAll(".winners-filter .filter").forEach(e => {
-         e.classList.remove("selected")
-      })
-   }
+   }, [])
 
    useEffect(() => {
-      // on event update, restore filters if set or just reload
-      if (filter.length != 0) {
-         update_display_events_from_filter()
-      } else {
-         setDisplayEvents(events)
-      }
-   }, [ events ])
+      update_display_events()
+   }, [ events, nameFilter, winnersFilter, timeFilter ])
 
    return (
       <main className="listen">
@@ -152,23 +171,53 @@ const Listen = () => {
 
          <NavBar />
 
-         <div className="search-box">
-            <div className="name-filter">
-               <h3 className="search-box-title">Filter by Artist</h3>
-
-               <button className="tag" onClick={() => resetNameFilter()}>Reset</button>
-               <p>|</p>
-               <button className="tag filter" onClick={(e) => toggleNameFilter(e.target, ['fred bear', 'purple guy', 'bruh', 'beatrice'])}>fred bear</button>
-               <button className="tag filter" onClick={(e) => toggleNameFilter(e.target, ['gab'])}>gab</button>
-               <button className="tag filter" onClick={(e) => toggleNameFilter(e.target, ['waymond'])}>waymond</button>
-               <button className="tag filter" onClick={(e) => toggleNameFilter(e.target, ['tony', '@black'])}>@black</button>
-               <button className="tag filter" onClick={(e) => toggleNameFilter(e.target, ['chiyeon'])}>chiyeon</button>
-            </div>
+         <div
+            onClick={() => setShowFilter(!showFilter)}
+            className="filter-toggle-box"
+         >
+            <h3>Filter by</h3>
+            <p 
+               className={"filter-toggle " + (showFilter ? "flipped" : "")}
+            >▼</p>
          </div>
 
-         { displayEvents.length === 0
-            ? (<center><div className="tag loading">Loading...</div></center>)
-            : displayEvents.map(event => { return TracksBox(event) })
+         {
+            showFilter
+               ? (<div className="search-box">
+               <div className="name-filter">
+                  <p className="search-box-title">Artist</p>
+                  <button className="tag filter" onClick={(e) => toggleNameFilter(e.target, ['fred bear', 'purple guy', 'bruh', 'beatrice'])}>fred bear</button>
+                  <button className="tag filter" onClick={(e) => toggleNameFilter(e.target, ['gab'])}>gab</button>
+                  <button className="tag filter" onClick={(e) => toggleNameFilter(e.target, ['waymond'])}>waymond</button>
+                  <button className="tag filter" onClick={(e) => toggleNameFilter(e.target, ['tony', '@black'])}>@black</button>
+                  <button className="tag filter" onClick={(e) => toggleNameFilter(e.target, ['chiyeon'])}>chiyeon</button>
+               </div>
+   
+               <div className="winners-filter">
+                  <p className="search-box-title">Winner</p>
+   
+                  <button className="tag filter" onClick={(e) => toggleWinnersFilter(e.target)}>Winner</button>
+               </div>
+   
+               <div className="time-filter">
+                  <p className="search-box-title">Time</p>
+                  <button className="tag filter" onClick={(e) => toggleTimeFilter(e.target, "48 hours")}>48 hours</button>
+                  <button className="tag filter" onClick={(e) => toggleTimeFilter(e.target, "24 hours")}>24 hours</button>
+                  <button className="tag filter" onClick={(e) => toggleTimeFilter(e.target, "10 minutes")}>10 minutes</button>
+                  <button className="tag filter" onClick={(e) => toggleTimeFilter(e.target, "5 minutes")}>5 minutes</button>
+               </div>
+   
+               <button className="tag" onClick={() => resetFilter()}>Reset</button>
+   
+            </div>)
+               : ""
+         }
+
+         { displayEvents.length === 0 && events.length === 0
+            ? (<center><div className="tag loading">Loading</div></center>)
+            : displayEvents.length === 0
+               ? (<center><div className="tag loading">No Tracks Found</div></center>)
+               : displayEvents.map(event => { return TracksBox(event) })
          }
       </main>
    )
