@@ -40,7 +40,7 @@ const TracksBox = (event) => {
  */
 const Track = (track) => {
    return (
-      <div className="track" key={track.artist}>
+      <div className="track" key={track.title}>
          <span className="track-title">
             {track.winner ? <div className="tag">winner</div> : ''}
             <p>{track.artist} - <strong>{track.title}</strong></p>
@@ -57,7 +57,10 @@ const Track = (track) => {
  * main page
  */
 const Listen = () => {
-   const [events, setEvents] = useState([])
+   const [events, setEvents] = useState([])                 // copy of events data
+   const [displayEvents, setDisplayEvents] = useState([])   // events to display
+   const [filter, _setFilter] = useState([]) // our current filter for names
+   const [winnersFilter, setWinnersFilter] = useState(false)
 
    useEffect(() => {
       if (window.chrome)
@@ -78,6 +81,69 @@ const Listen = () => {
       fetchData()
    })
 
+   // toggles target filter on/off.
+   const toggleNameFilter = (target, _filter) => {
+      // check if we are removing a filter from our search
+      if (filter.includes(_filter[0])) {
+         if (target) target.classList.remove("selected")
+         _setFilter(filter.filter(f => !_filter.includes(f)))
+      } else {
+      if (target) target.classList.add("selected")
+         _setFilter(filter.concat(_filter))
+      }
+   }
+
+   const resetNameFilter = () => {
+      document.querySelectorAll(".name-filter .filter").forEach(e => {
+         e.classList.remove("selected")
+      })
+
+      _setFilter([])
+   }
+
+   const update_display_events_from_filter = () => {
+      let filtered_events = [];
+
+      [...events].forEach(event => {
+         let filtered_event = event;
+         filtered_event.tracks = filtered_event.tracks.filter(t => filter.includes(t.artist))
+         if (filtered_event.tracks.length != 0)
+            filtered_events.push(filtered_event)
+      })
+
+      setDisplayEvents(filtered_events)
+   }
+
+   const toggleWinnersFilter = (target) => {
+      if (target) winnersFilter ? target.classList.remove("selected") : target.classList.remove("add")
+
+      setWinnersFilter(!winnersFilter)
+   }
+
+   const resetWinnersFilter = () => {
+      document.querySelectorAll(".winners-filter .filter").forEach(e => {
+         e.classList.remove("selected")
+      })
+   }
+
+   useEffect(() => {
+      // on event update, restore filters if set or just reload
+      if (filter.length != 0) {
+         update_display_events_from_filter()
+      } else {
+         setDisplayEvents(events)
+      }
+   }, [ events ])
+
+   useEffect(() => {
+      if (filter.length == 0) {
+         setDisplayEvents(events)
+         return;
+      }
+
+      update_display_events_from_filter()
+   }, [filter])
+
    return (
       <main className="listen">
          <span className="site-title">
@@ -87,9 +153,23 @@ const Listen = () => {
 
          <NavBar />
 
-         { events.length === 0
-            ? (<center><div className="tag">Loading...</div></center>)
-            : events.map(event => { return TracksBox(event) })
+         <div className="search-box">
+            <div className="name-filter">
+               <h3 className="search-box-title">Filter by Artist</h3>
+
+               <button className="tag" onClick={() => resetNameFilter()}>Reset</button>
+               <p>|</p>
+               <button className="tag filter" onClick={(e) => toggleNameFilter(e.target, ['fred bear', 'purple guy', 'bruh', 'beatrice'])}>fred bear</button>
+               <button className="tag filter" onClick={(e) => toggleNameFilter(e.target, ['gab'])}>gab</button>
+               <button className="tag filter" onClick={(e) => toggleNameFilter(e.target, ['waymond'])}>waymond</button>
+               <button className="tag filter" onClick={(e) => toggleNameFilter(e.target, ['tony', '@black'])}>@black</button>
+               <button className="tag filter" onClick={(e) => toggleNameFilter(e.target, ['chiyeon'])}>chiyeon</button>
+            </div>
+         </div>
+
+         { displayEvents.length === 0
+            ? (<center><div className="tag loading">Loading...</div></center>)
+            : displayEvents.map(event => { return TracksBox(event) })
          }
       </main>
    )

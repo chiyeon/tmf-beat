@@ -40,3 +40,30 @@
    margin: 0;
    margin-bottom: 20px;
 }
+
+.search-box {
+   margin-bottom: 25px;
+}
+
+.search-box .tag {
+   margin-right: 5px;
+}
+
+.search-box p {
+   margin: 0 8px 0 3px;
+   display: inline;
+}
+
+.tag.loading {
+   margin-top: 10px;
+}
+
+.listen .search-box .filter {
+   background-color: var(--color-normal);
+}
+
+.listen .search-box .filter:hover,
+.listen .search-box .filter.selected {
+   background-color: var(--color-accent);
+
+}
