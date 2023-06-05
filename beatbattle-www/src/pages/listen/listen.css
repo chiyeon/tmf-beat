@@ -26,6 +26,7 @@
 
 .track-title > p {
    margin: 0;
+   overflow-wrap: anywhere;
 }
 
 .track > span {
