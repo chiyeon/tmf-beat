@@ -2,7 +2,7 @@
 Website &amp; Voting Server for That My Favorite Beat 24/48 Hour Beat Challenge!
 
 ### beatbattle-www
-The static website runs on React and communicates with the voting server for all voting purposes. All other data is **hard coded into the client**, something that--with better hosting options--should be changed in the future.
+The static website runs on React and communicates with the web server for data. 
 
 ### vote4-server
-The voting server is deployed with free hosting options, and may take a few moments to start up as a result. The server handles processing votes, determining winners, and storing data. The express web server processes and handles requests from clients, verifying and checking all before making changes. 
+The voting server handles requests from clients, sending and receiving data as needed. Processing votes, determining winners, and recalling/changing data, the web server ensures the clients have up to date information and submit only valid requests.
