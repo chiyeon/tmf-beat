@@ -53,13 +53,20 @@ h2 {
    margin: 0;
 }
 
+h3 {
+   margin: 5px 0;
+   font-family: "Coolvetica", sans-serif;
+   font-weight: normal;
+
+}
+
 p {
    font-family: sans-serif;
    font-size: 1.2rem;
    font-family: "Inter", sans-serif;
 }
 
-h1, h2, p {
+h1, h2, h3, p {
    color: var(--color-light);
    font-weight: normal;
 }

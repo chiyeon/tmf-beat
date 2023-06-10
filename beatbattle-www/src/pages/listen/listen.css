@@ -26,6 +26,7 @@
 
 .track-title > p {
    margin: 0;
+   overflow-wrap: anywhere;
 }
 
 .track > span {
@@ -39,4 +40,67 @@
 .event-tracks-box .description {
    margin: 0;
    margin-bottom: 20px;
+}
+
+.search-box {
+   margin-bottom: 25px;
+}
+
+.search-box .tag {
+   margin-right: 5px;
+   margin-bottom: 5px;
+}
+
+.search-box p {
+   margin: 0 8px 0 3px;
+   display: inline;
+}
+
+.tag.loading {
+   margin-top: 10px;
+}
+
+.search-box-title {
+   font-size: 1rem;
+   display: inline-block !important;
+   width: 60px;
+}
+
+.listen .search-box .filter {
+   background-color: var(--color-normal);
+}
+
+.listen .search-box .filter:hover,
+.listen .search-box .filter.selected {
+   background-color: var(--color-accent);
+
+}
+
+.filter-toggle-box {
+   cursor: pointer;
+   user-select: none;
+   width: max-content;
+}
+
+.filter-toggle-box:hover > p {
+   color: var(--color-accent);
+}
+
+.filter-toggle {
+   margin: 0;
+   display: inline-block;
+   font-size: 1rem;
+   transform: rotate(0deg);
+
+   transition: transform 200ms cubic-bezier(1, 0, 0, 1)
+}
+
+.filter-toggle.flipped {
+   transform: rotate(180deg);
+}
+
+.listen h3 {
+   display: inline-block;
+   margin-right: 5px;
+   margin-bottom: 10px !important;
 }
