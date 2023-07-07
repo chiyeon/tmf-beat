@@ -197,10 +197,10 @@ const get_display_tracks = async (req, res) => {
    // surely there is better....
    
    // fnaf one
-   let fnaf_tracks = (await firebase.get_doc_path("events/1"))
-   let first_tracks = (await firebase.get_doc_path("events/0"))
+   let fnaf_tracks = (await firebase.get_doc_path("events/1")).tracks
+   let first_tracks = (await firebase.get_doc_path("events/0")).tracks
    let display_tracks = [
-      (await firebase.get_doc_path("events/2"))[0],      // spicy ice
+      (await firebase.get_doc_path("events/2")).tracks[0],      // spicy ice
       fnaf_tracks[0],
       fnaf_tracks[1],
       first_tracks[2],

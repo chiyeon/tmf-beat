@@ -40,9 +40,10 @@ const Home = () => {
             method: "get",
             url: process.env.REACT_APP_SERVER_URL + "/display-tracks",
             responseType: "json"
-         })).data
+         })).data.display_tracks
 
          set_display_tracks(data)
+         console.log(data)
       }
       
       fetchData()
