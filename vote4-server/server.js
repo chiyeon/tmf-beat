@@ -70,7 +70,7 @@ const set_winners = async () => {
    })
 
    winners = winners.sort((a, b) => {
-      a.winner - b.winner
+      b.winner - a.winner
    })
 
    // update winners in firebase db
