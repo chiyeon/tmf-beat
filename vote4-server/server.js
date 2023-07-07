@@ -193,6 +193,25 @@ const get_winners = async (req, res) => {
    })
 }
 
+const get_display_tracks = async (req, res) => {
+   // surely there is better....
+   
+   // fnaf one
+   let fnaf_tracks = (await firebase.get_doc_path("events/1"))
+   let first_tracks = (await firebase.get_doc_path("events/0"))
+   let display_tracks = [
+      (await firebase.get_doc_path("events/2"))[0],      // spicy ice
+      fnaf_tracks[0],
+      fnaf_tracks[1],
+      first_tracks[2],
+      first_tracks[3]
+   ]
+
+   res.json({
+      display_tracks
+   })
+}
+
 const get_tracks = async(req, res) => {
    if (end_time != null && end_time != 0) {
       if (end_time < Date.now()) set_winners()
@@ -253,6 +272,7 @@ app.post("/reset", on_vote_reset)
 app.post("/new-event", on_new_event)
 
 app.get("/winners", get_winners)
+app.get("/display-tracks", get_display_tracks)
 app.get("/tracks", get_tracks)
 app.get("/events", get_events)
 app.get("/time", async (req, res) => { res.json({ time: end_time }) })
