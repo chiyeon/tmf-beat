@@ -69,9 +69,7 @@ const set_winners = async () => {
       }
    })
 
-   winners = winners.sort((a, b) => {
-      b.winner - a.winner
-   })
+   winners = winners.sort((a, b) => b.winner - a.winner)
 
    // update winners in firebase db
    firebase.update_doc("events", current_event_id, {
