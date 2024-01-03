@@ -1,29 +1,31 @@
 import "./listen.css"
 import NavBar from "../../components/navbar/navbar.jsx"
+import Track from "../../components/track/track.jsx"
 import { useEffect, useState } from "react"
 import axios from "axios"
+import { publish } from "../../events.js"
 
 /*
  * Container for each event. Has a title at the top & list of tracks
  */
-const TracksBox = (event) => {
+const TracksBox = (props) => {
    return (
       <div 
-      className="event-tracks-box"
-         key={event.title}
+         className="event-tracks-box"
+         key={props.event.title}
       >
          <span className="title">
-            <p className="tag">{event.date}</p>
-            <h2>{event.title}</h2>
+            <p className="tag">{props.event.date}</p>
+            <h2>{props.event.title}</h2>
             <hr />
          </span>
 
          {/*<p class="description">{event.description}</p>*/}
 
-         {event.tracks.length > 0 ?
+         {props.event.tracks.length > 0 ?
                <span>
-                  {event.tracks.map(track => {
-                     return Track(track)
+                  {props.event.tracks.map(track => {
+                     return <Track key={track.link} track={track} id={props.playlist.indexOf(track)} index={props.playlist.indexOf(track)} />
                   })}
                </span>
             :
@@ -36,35 +38,9 @@ const TracksBox = (event) => {
 }
 
 /*
- * one singular track, inside a track box
- */
-const Track = (track) => {
-   return (
-      <div className="track" key={track.title}>
-         <span className="track-title">
-            {track.winner ? <div className="tag">winner</div> : ''}
-            <p>{track.artist} - <strong>{track.title}</strong></p>
-         </span>
-         <audio
-            className="audio"
-            onPlay={(e) => {
-               document.querySelectorAll("audio").forEach(a => {
-                  if (a != e.target) a.pause()
-               })
-            }}
-            controls
-         >
-            <source src={track.link} />
-            Your browser does not support the audio element.
-         </audio>
-      </div>
-   )
-}
-
-/*
  * main page
  */
-const Listen = () => {
+const Listen = (props) => {
    const [events, setEvents] = useState([])                 // copy of events data
    const [displayEvents, setDisplayEvents] = useState([])   // events to display
    const [nameFilter, setNameFilter] = useState([]) // our current filter for names
@@ -73,10 +49,21 @@ const Listen = () => {
 
    const [showFilter, setShowFilter] = useState(false)
 
+   const [playlist, setPlaylist] = useState([])
+
    const update_display_events = () => {
       // basic case: no filters!
       if (nameFilter.length == 0 && !winnersFilter && timeFilter.length == 0) {
          setDisplayEvents(events)
+
+         let playlist = []
+         events.forEach(e => {
+            e.tracks.forEach(t => {
+               playlist.push(t)
+            })
+         })
+         setPlaylist(playlist)
+         publish("set_playlist", playlist)
       } else {
          let filtered_events = [];
 
@@ -99,6 +86,14 @@ const Listen = () => {
          })
 
          setDisplayEvents(filtered_events)
+         let playlist = []
+         filtered_events.forEach(e => {
+            e.tracks.forEach(t => {
+               playlist.push(t)
+            })
+         })
+         setPlaylist(playlist)
+         publish("set_playlist", playlist)
       }
    }
 
@@ -162,6 +157,8 @@ const Listen = () => {
       update_display_events()
    }, [ events, nameFilter, winnersFilter, timeFilter ])
 
+
+
    return (
       <main className="listen">
          <span className="site-title">
@@ -217,7 +214,7 @@ const Listen = () => {
             ? (<center><div className="tag loading">Loading</div></center>)
             : displayEvents.length === 0
                ? (<center><div className="tag loading">No Tracks Found</div></center>)
-               : displayEvents.map(event => { return TracksBox(event) })
+               : displayEvents.map(event => { return <TracksBox key={event.name} event={event} playlist={playlist} />})
          }
       </main>
    )

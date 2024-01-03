@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Anonymous+Pro&family=Inconsolata&display=swap');
+.voice * {
+   font-family: 'Anonymous Pro', monospace;
+}
+
+.voice .monke {
+   max-width: 1000px;
+   margin: auto;
+   margin-top: 100px;
+
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+}
+
+.voice {
+   width: 100vw;
+   height: 100vh;
+   max-height: 100%;
+   overflow: hidden;
+   margin: 0;
+   max-width: 100%;
+   background-color: black;
+}
+
+main.voice {
+   padding: 0;
+}
+
+.voice h1, 
+.voice p, 
+.voice option, 
+.voice label, 
+.voice input, 
+.voice button {
+   font-size: 16px;
+}
+
+.voice h1 {
+   font-style: normal;
+   text-align: left;
+}
+
+.voice .choices {
+   display: flex;
+   gap: 4px;
+   flex-direction: column;
+   margin-left: 40px;
+}
+
+.voice .choices > .choice {
+   margin: 0;
+}
+
+.voice .choices .choice.selected {
+   color: orange;
+}
+
+.voice form {
+   display: flex;
+   flex-direction: column;
+   max-width: 225px;
+}
+
+.voice form select,
+.voice form button {
+   font-size: 16px;
+}
+
+.voice form button {
+   padding: 8px 6px;
+   background: rgb(11, 11, 11);
+   border-radius: 4px;
+   border: none;
+   border: 1px solid white;
+   color: white;
+}
+
+.voice form button:hover {
+   background: white;
+   color: black;
+   cursor: pointer;
+}
+
+.voice form select {
+   margin-bottom: 20px;
+   padding: 8px 6px;
+   border: none;
+   outline: 1px solid gray;
+   background: none;
+   color: white;
+   border-radius: 4px;
+}
+
+.voice form label {
+   background: none !important;
+   margin-bottom: 5px;
+}
+
+.voice form input {
+   background: none !important;
+   outline: 1px solid gray;
+   margin-bottom: 20px;
+}
+
+.voice form input:active,
+.voice form input:hover,
+.voice form input:focus {
+   outline: 1px solid white !important;
+}

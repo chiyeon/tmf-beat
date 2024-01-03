@@ -1,35 +1,16 @@
 import "./home.css"
 import NavBar from "../../components/navbar/navbar.jsx"
+import Track from "../../components/track/track.jsx"
 import { useEffect, useState } from "react"
 import axios from "axios"
+import { publish } from "../../events.js"
+
 
 const playthatmyfavorite = () => {
    let thatmyfavorite = new Audio("../../assets/thatmyfavorite.mp3")
    thatmyfavorite.play()
 }
 
-const Track = (track) => {
-   return (
-      <div className="track" key={track.title}>
-         <span className="track-title">
-            {track.winner ? <div className="tag">winner</div> : ''}
-            <p>{track.artist} - <strong>{track.title}</strong></p>
-         </span>
-         <audio
-            className="audio"
-            onPlay={(e) => {
-               document.querySelectorAll("audio").forEach(a => {
-                  if (a != e.target) a.pause()
-               })
-            }}
-            controls
-         >
-            <source src={track.link} />
-            Your browser does not support the audio element.
-         </audio>
-      </div>
-   )
-}
 
 const Home = () => {
    const [display_tracks, set_display_tracks] = useState([])
@@ -43,7 +24,8 @@ const Home = () => {
          })).data.display_tracks
 
          set_display_tracks(data)
-         console.log(data)
+
+         publish("set_playlist", data)
       }
       
       fetchData()
@@ -98,7 +80,7 @@ const Home = () => {
          {display_tracks.length > 0 ?
                <span>
                   {display_tracks.map(track => {
-                     return Track(track)
+                     return <Track key={track.link} track={track} index={display_tracks.indexOf(track)} />
                   })}
                </span>
             :

@@ -27,6 +27,7 @@
    --color-normal: #3F4E4F;
    --color-dark: #2C3639;
    --color-accent: #A27B5C;
+   --page-width: 600px;
 }
 
 body {
@@ -80,13 +81,14 @@ hr {
 }
 
 main {
-   max-width: 600px;
+   max-width: var(--page-width);
    margin: auto;
    padding: 0 20px 0 20px;
    -webkit-font-smoothing: antialiased;
    -moz-osx-font-smoothing: grayscale;
    opacity: 0;
    transition: 300ms opacity;
+   padding-bottom: 150px;
 }
 
 a.tag {

@@ -1,0 +1,46 @@
+.track {
+   margin-bottom: 10px;
+   border-radius: 10px;
+   padding: 10px;
+
+   display: flex;
+   flex-direction: column;
+
+   cursor: pointer;
+
+   background-color: var(--color-normal);
+}
+
+.track:hover, .track.selected {
+   background-color: var(--color-accent);
+}
+
+.track:hover .tag, 
+.track.selected .tag {
+   background-color: var(--color-normal);
+   color: var(--color-light);
+}
+
+.track-title {
+   display: flex;
+   flex-direction: row;
+   flex-wrap: wrap;
+
+   align-items: center;
+
+   gap: 2px 8px;
+}
+
+.track-title > p {
+   margin: 0;
+   overflow-wrap: anywhere;
+}
+
+.track > span {
+   flex: 1.33;
+}
+
+/* .track .waveform {
+   width: 100%;
+   height: 100px;
+} */
