@@ -80,7 +80,7 @@ const Home = () => {
          {display_tracks.length > 0 ?
                <span>
                   {display_tracks.map(track => {
-                     return <Track key={track.link} track={track} index={display_tracks.indexOf(track)} />
+                     return <Track key={track.link} id={display_tracks.indexOf(track)} track={track} index={display_tracks.indexOf(track)} />
                   })}
                </span>
             :

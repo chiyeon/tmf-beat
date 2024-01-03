@@ -1,7 +1,6 @@
 import "./track.css"
 import { publish, subscribe } from "../../events.js"
 import { useRef, useEffect } from "react"
-import WaveSurfer from 'https://unpkg.com/wavesurfer.js@7/dist/wavesurfer.esm.js'
 
 /*
  * one singular track, inside a track box

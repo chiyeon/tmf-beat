@@ -58,3 +58,8 @@ main {
 .process .highlight {
    color: var(--color-light);
 }
+
+#thatmyfavorite {
+   margin: auto;
+   margin-top: 60px;
+}
