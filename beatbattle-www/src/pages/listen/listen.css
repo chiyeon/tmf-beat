@@ -42,10 +42,14 @@
    background-color: var(--color-normal);
 }
 
-.listen .search-box .filter:hover,
+@media (hover: hover) {
+   .listen .search-box .filter:hover {
+      background-color: var(--color-accent);
+   }
+}
+
 .listen .search-box .filter.selected {
    background-color: var(--color-accent);
-
 }
 
 .filter-toggle-box {

@@ -68,14 +68,19 @@ const Listen = (props) => {
          let filtered_events = [];
 
          events.forEach(event => {
-            // skip if not in time filter
+            // apply filters
             if (timeFilter.length != 0 && !timeFilter.includes(event.time)) return
-
-            // then filter tracks based on winner/name
-            let filtered_tracks = event.tracks.filter(t => 
-                  (nameFilter.length != 0 ? nameFilter.includes(t.artist) : true)
+            let filtered_tracks = event.tracks.filter(t =>
+                  (timeFilter.length != 0 ? timeFilter.includes(event.time) : true)
+               && (nameFilter.length != 0 ? nameFilter.includes(t.artist) : true)
                && (winnersFilter ? t.winner : true)
             )
+
+            // // then filter tracks based on winner/name
+            // let filtered_tracks = event.tracks.filter(t => 
+            //       (nameFilter.length != 0 ? nameFilter.includes(t.artist) : true)
+            //    && (winnersFilter ? t.winner : true)
+            // )
 
             if (filtered_tracks.length != 0) {
                // only if we have valid tracks in the event do we make a deep copy
@@ -119,13 +124,13 @@ const Listen = (props) => {
       }
    }
 
-   const toggleTimeFilter = (target, _time) => {
-      if (timeFilter.includes(_time)) {
+   const toggleTimeFilter = (target, _filter) => {
+      if (timeFilter.includes(_filter[0])) {
          if (target) target.classList.remove("selected")
-         setTimeFilter(timeFilter.filter(t => t != _time))
+         setTimeFilter(timeFilter.filter(t => !_filter.includes(t)))
       } else {
          if (target) target.classList.add("selected")
-         setTimeFilter([...timeFilter, _time])
+         setTimeFilter(timeFilter.concat(_filter))
       }
    }
 
@@ -183,11 +188,11 @@ const Listen = (props) => {
                ? (<div className="search-box">
                <div className="name-filter">
                   <p className="search-box-title">Artist</p>
-                  <button className="tag filter" onClick={(e) => toggleNameFilter(e.target, ['fred bear', 'purple guy', 'bruh', 'beatrice'])}>fred bear</button>
-                  <button className="tag filter" onClick={(e) => toggleNameFilter(e.target, ['gab'])}>gab</button>
-                  <button className="tag filter" onClick={(e) => toggleNameFilter(e.target, ['waymond'])}>waymond</button>
-                  <button className="tag filter" onClick={(e) => toggleNameFilter(e.target, ['tony', '@black'])}>@black</button>
-                  <button className="tag filter" onClick={(e) => toggleNameFilter(e.target, ['chiyeon'])}>chiyeon</button>
+                  <button className="tag filter" onClick={(e) => toggleNameFilter(e.target, ['fred bear', 'purple guy', 'bruh', 'beatrice', 'TMFBEAT'])}>fred bear</button>
+                  <button className="tag filter" onClick={(e) => toggleNameFilter(e.target, ['gab', 'TMFBEAT'])}>gab</button>
+                  <button className="tag filter" onClick={(e) => toggleNameFilter(e.target, ['waymond', 'TMFBEAT'])}>waymond</button>
+                  <button className="tag filter" onClick={(e) => toggleNameFilter(e.target, ['tony', '@black', 'TMFBEAT'])}>@black</button>
+                  <button className="tag filter" onClick={(e) => toggleNameFilter(e.target, ['chiyeon', 'TMFBEAT'])}>chiyeon</button>
                </div>
    
                <div className="winners-filter">
@@ -198,10 +203,11 @@ const Listen = (props) => {
    
                <div className="time-filter">
                   <p className="search-box-title">Time</p>
-                  <button className="tag filter" onClick={(e) => toggleTimeFilter(e.target, "48 hours")}>48 hours</button>
-                  <button className="tag filter" onClick={(e) => toggleTimeFilter(e.target, "24 hours")}>24 hours</button>
-                  <button className="tag filter" onClick={(e) => toggleTimeFilter(e.target, "10 minutes")}>10 minutes</button>
-                  <button className="tag filter" onClick={(e) => toggleTimeFilter(e.target, "5 minutes")}>5 minutes</button>
+                  <button className="tag filter" onClick={(e) => toggleTimeFilter(e.target, ["48 hours"])}>48 hours</button>
+                  <button className="tag filter" onClick={(e) => toggleTimeFilter(e.target, ["24 hours"])}>24 hours</button>
+                  <button className="tag filter" onClick={(e) => toggleTimeFilter(e.target, ["10 minutes"])}>10 minutes</button>
+                  <button className="tag filter" onClick={(e) => toggleTimeFilter(e.target, ["5 minutes"])}>5 minutes</button>
+                  <button className="tag filter" onClick={(e) => toggleTimeFilter(e.target, ["misc", undefined])}>Misc</button>
                </div>
    
                <button className="tag" onClick={() => resetFilter()}>Reset</button>
