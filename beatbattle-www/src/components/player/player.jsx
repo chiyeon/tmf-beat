@@ -29,23 +29,9 @@ const Player = () => {
    }
 
    useEffect(() => {
-      document.addEventListener("set_track", (e) => { setTrackForceUpdate(e.detail); })
+      document.addEventListener("set_track", (e) => { setTrack(e.detail) })
       document.addEventListener("set_playlist", (e) => { setPlaylist(e.detail); })
    }, [])
-
-   // sets our track but also forces an update/replay if we are 
-   // applying the same track id
-   const setTrackForceUpdate = (new_track) => {
-      return setTrack(new_track);
-      if (track == new_track) {
-         if (audioRef.current) {
-            audioRef.current.pause();
-            audioRef.current.load();
-         }
-      } else {
-         setTrack(new_track);
-      }
-   }
 
    useEffect(() => {
       let prev = document.querySelector(".track.selected")
