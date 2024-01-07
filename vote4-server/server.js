@@ -148,6 +148,7 @@ const on_new_event = async (req, res) => {
       if (request.event.title == "") return res.status(400).json({ message: "Title is empty!" })
       if (request.event.date == "") return res.status(400).json({ message: "Date is empty!" })
       if (request.event.tracks.length == 0) return res.status(400).json({ message: "No track data!" })
+      if (request.event.time == "") return res.status(400).json({ message: "No category!" })
 
       let events_length = Object.keys(events).length
       await firebase.set_doc("events", events_length.toString(), request.event)
