@@ -174,7 +174,8 @@ button.tag:active {
 
    display: flex;
    flex-direction: column;
-   width: 200px;
+
+   width: fit-content;
 }
 
 .form-element label {
@@ -183,6 +184,17 @@ button.tag:active {
    left: 1rem;
 }
 
+.form-element input[type="text"],
+.form-element input[type="password"] {
+   width: 200px;
+}
+.form-element textarea {
+   width: 400px;
+   height: 125px;
+}
+
+textarea,
+input[type="datetime-local"],
 input[type="password"],
 input[type="text"] {
    padding: 8px 8px 4px 8px;
@@ -191,9 +203,12 @@ input[type="text"] {
    color: var(--color-light);
    border-radius: 4px;
 
-   font-size: 1.25rem;
+   font-size: 1rem;
+   line-height: 1.5rem;
 }
 
+textarea:focus,
+input:focus,
 input[type="password"]:focus,
 input[type="text"]:focus {
    outline: none !important;

@@ -1,7 +1,7 @@
 import NavBar from "../../components/navbar/navbar.jsx"
 import InputField from "../../components/InputField/inputfield.jsx"
 import axios from "axios"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 
 import "./secret.css"
 
@@ -65,15 +65,29 @@ const TrackEntry = (props) => {
 const Secret = () => {
 
    const [secret, setSecret] = useState("")
-   const [minutes, setMinutes] = useState(0.0)
+   const [category, setCategory] = useState("")
+   const [description, setDescription] = useState("")
    const [message, _setMessage] = useState("")
    const [showMessage, setShowMessage] = useState(false)
    const [messageInterval, setMessageInterval] = useState(null)
+   const [voteEndTime, setVoteEndTime] = useState(null)
+
+   const voteRef = useRef()
 
    // for posting new events
    const [tracks, setTracks] = useState([])
    const [title, setTitle] = useState("")
    const [date, setDate] = useState("")
+
+   useEffect(() => {
+      var now = new Date();
+      now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+
+      now.setMilliseconds(null)
+      now.setSeconds(null)
+
+      voteRef.current.value = now.toISOString().slice(0, -1);
+   }, [voteRef]);
 
    const setMessage = (message) => {
       _setMessage(message)
@@ -84,6 +98,9 @@ const Secret = () => {
    }
 
    const start_vote = async () => {
+      let d = new Date();
+      let minutes = (voteEndTime - Date.now()) / 1000 / 60;
+
       let response
       try {
          response = await axios({
@@ -140,7 +157,9 @@ const Secret = () => {
                event: {
                   title,
                   date,
-                  tracks
+                  tracks,
+                  time: category,
+                  description
                }
             }
          })
@@ -172,7 +191,7 @@ const Secret = () => {
 
          <NavBar />
 
-         <center class="secret-input" >
+         <center className="secret-input" >
             <InputField type="password" label="Secret" onInput={e => setSecret(e.target.value)} />
             <p><i>That my Favorite!</i></p>
          </center>
@@ -184,9 +203,14 @@ const Secret = () => {
                   <h2>Vote Controls</h2>
                   <hr />
                </span>
-               <button onClick={() => start_vote()} className="tag start-button">Start</button>
-               <button onClick={() => reset()} className="tag start-button">Reset</button>
-               <InputField type="text" label="Vote Duration" onInput={e => setMinutes(parseFloat(e.target.value))} />
+               {/*<InputField type="text" label="Vote Duration" onInput={e => setMinutes(parseFloat(e.target.value))} /> */}
+               <input type="datetime-local" ref={voteRef} onChange={e => setVoteEndTime(new Date(e.target.value))} />
+               <br />
+               <br />
+               <span className="vote-buttons">
+                  <button onClick={() => start_vote()} className="comically-large-button tag start-button">Start</button>
+                  <button onClick={() => reset()} className="comically-large-button tag start-button">Reset</button>
+               </span>
             </div>
 
             <div className="category">
@@ -194,11 +218,19 @@ const Secret = () => {
                   <h2>Create New Event</h2>
                   <hr />
                </span>
-            <button onClick={() => new_track()} className="tag start-button">New Track</button>
-               <button onClick={() => post_tracks()} className="tag start-button">Upload</button>
+               <button className="comically-large-button tag start-button" onClick={() => post_tracks()} >Upload</button>
+
+               <h3>Event Information</h3>
+               <hr />
+               <br />
                <InputField type="text" label="Title" onInput={e => setTitle(e.target.value)} />
                <InputField type="text" label="Date" onInput={e => setDate(e.target.value)} />
-
+               <InputField type="text" label="Category" onInput={e => setCategory(e.target.value)} />
+               <InputField type="textarea" label="Description" onInput={e => setDescription(e.target.value)} />
+               
+               <h3>Tracklist</h3>
+               <hr />
+               <button onClick={() => new_track()} className="tag start-button">New Track</button>
                {tracks.map((track, index) => {
                   return <TrackEntry track={track} key={index} index={index} tracks={tracks} setTracks={setTracks} />
                })}
