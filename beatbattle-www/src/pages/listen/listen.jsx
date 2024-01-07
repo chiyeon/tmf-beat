@@ -3,7 +3,6 @@ import NavBar from "../../components/navbar/navbar.jsx"
 import Track from "../../components/track/track.jsx"
 import { useEffect, useState } from "react"
 import axios from "axios"
-import { publish } from "../../events.js"
 
 /*
  * Container for each event. Has a title at the top & list of tracks
@@ -63,7 +62,7 @@ const Listen = (props) => {
             })
          })
          setPlaylist(playlist)
-         publish("set_playlist", playlist)
+         document.dispatchEvent(new CustomEvent("set_playlist", { detail: playlist }))
       } else {
          let filtered_events = [];
 
@@ -98,7 +97,7 @@ const Listen = (props) => {
             })
          })
          setPlaylist(playlist)
-         publish("set_playlist", playlist)
+         document.dispatchEvent(new CustomEvent("set_playlist", { detail: playlist }))
       }
    }
 

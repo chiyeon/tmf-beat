@@ -1,5 +1,4 @@
 import "./player.css"
-import { subscribe, unsubscribe, publish } from "../../events.js"
 import { useState, useEffect, useRef } from "react"
 
 const Player = () => {
@@ -20,8 +19,7 @@ const Player = () => {
       if (track <= 0) return;
 
       setTrack(track - 1)
-      publish("update_track_visual", track - 1)
-
+      document.dispatchEvent(new CustomEvent("update_track_visual", { detail: track - 1 }))
    }
 
    const next_track = () => {
@@ -31,9 +29,23 @@ const Player = () => {
    }
 
    useEffect(() => {
-      subscribe("set_playlist", (e) => { setPlaylist(e.detail) })
-      subscribe("set_track", (e) => { setTrack(e.detail) })
+      document.addEventListener("set_track", (e) => { setTrackForceUpdate(e.detail); })
+      document.addEventListener("set_playlist", (e) => { setPlaylist(e.detail); })
    }, [])
+
+   // sets our track but also forces an update/replay if we are 
+   // applying the same track id
+   const setTrackForceUpdate = (new_track) => {
+      return setTrack(new_track);
+      if (track == new_track) {
+         if (audioRef.current) {
+            audioRef.current.pause();
+            audioRef.current.load();
+         }
+      } else {
+         setTrack(new_track);
+      }
+   }
 
    useEffect(() => {
       let prev = document.querySelector(".track.selected")

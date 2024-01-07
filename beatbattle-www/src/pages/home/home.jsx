@@ -3,7 +3,6 @@ import NavBar from "../../components/navbar/navbar.jsx"
 import Track from "../../components/track/track.jsx"
 import { useEffect, useState } from "react"
 import axios from "axios"
-import { publish } from "../../events.js"
 
 
 const playthatmyfavorite = () => {
@@ -25,7 +24,7 @@ const Home = () => {
 
          set_display_tracks(data)
 
-         publish("set_playlist", data)
+         document.dispatchEvent(new CustomEvent("set_playlist", { detail: data }))
       }
       
       fetchData()

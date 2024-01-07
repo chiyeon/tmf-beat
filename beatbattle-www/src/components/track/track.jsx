@@ -1,5 +1,4 @@
 import "./track.css"
-import { publish, subscribe } from "../../events.js"
 import { useRef, useEffect } from "react"
 
 /*
@@ -17,7 +16,7 @@ const Track = (props) => {
 
       trackRef.current.classList.add("selected");
 
-      publish("set_track", props.index)
+      document.dispatchEvent(new CustomEvent("set_track", { detail: props.index }));
    }
 
    return (
