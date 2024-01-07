@@ -35,7 +35,7 @@
 .search-box-title {
    font-size: 1rem;
    display: inline-block !important;
-   width: 60px;
+   width: 80px;
 }
 
 .listen .search-box .filter {
@@ -58,8 +58,11 @@
    width: max-content;
 }
 
-.filter-toggle-box:hover > p {
-   color: var(--color-accent);
+
+@media (hover: hover) {
+   .filter-toggle-box:hover > p {
+      color: var(--color-accent);
+   }
 }
 
 .filter-toggle {

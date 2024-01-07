@@ -11,11 +11,21 @@
    background-color: var(--color-normal);
 }
 
-.track:hover, .track.selected {
+@media (hover: hover) {
+   .track:hover {
+      background-color: var(--color-accent);
+   }
+
+   .track:hover .tag {
+      background-color: var(--color-normal);
+      color: var(--color-light);
+   }
+}
+
+.track.selected {
    background-color: var(--color-accent);
 }
 
-.track:hover .tag, 
 .track.selected .tag {
    background-color: var(--color-normal);
    color: var(--color-light);

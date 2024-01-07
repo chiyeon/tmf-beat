@@ -190,9 +190,9 @@ const Listen = (props) => {
                   <p className="search-box-title">Artist</p>
                   <button className="tag filter" onClick={(e) => toggleNameFilter(e.target, ['fred bear', 'purple guy', 'bruh', 'beatrice', 'TMFBEAT'])}>fred bear</button>
                   <button className="tag filter" onClick={(e) => toggleNameFilter(e.target, ['gab', 'TMFBEAT'])}>gab</button>
-                  <button className="tag filter" onClick={(e) => toggleNameFilter(e.target, ['waymond', 'TMFBEAT'])}>waymond</button>
+                  <button className="tag filter" onClick={(e) => toggleNameFilter(e.target, ['waymond', 'TMFBEAT', 'waymond & chiyeon'])}>waymond</button>
                   <button className="tag filter" onClick={(e) => toggleNameFilter(e.target, ['tony', '@black', 'TMFBEAT'])}>@black</button>
-                  <button className="tag filter" onClick={(e) => toggleNameFilter(e.target, ['chiyeon', 'TMFBEAT'])}>chiyeon</button>
+                  <button className="tag filter" onClick={(e) => toggleNameFilter(e.target, ['chiyeon', 'TMFBEAT', 'waymond & chiyeon'])}>chiyeon</button>
                </div>
    
                <div className="winners-filter">
@@ -202,7 +202,7 @@ const Listen = (props) => {
                </div>
    
                <div className="time-filter">
-                  <p className="search-box-title">Time</p>
+                  <p className="search-box-title">Category</p>
                   <button className="tag filter" onClick={(e) => toggleTimeFilter(e.target, ["48 hours"])}>48 hours</button>
                   <button className="tag filter" onClick={(e) => toggleTimeFilter(e.target, ["24 hours"])}>24 hours</button>
                   <button className="tag filter" onClick={(e) => toggleTimeFilter(e.target, ["10 minutes"])}>10 minutes</button>

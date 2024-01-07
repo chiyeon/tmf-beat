@@ -81,9 +81,11 @@
    transform: scaleX(-1);
 }
 
-.player .content .right .media svg:hover {
-   opacity: 0.5;
-   cursor: pointer;
+@media (hover: hover) {
+   .player .content .right .media svg:hover {
+      opacity: 0.5;
+      cursor: pointer;
+   }
 }
 
 .controls svg.flipped {

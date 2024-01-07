@@ -29,9 +29,12 @@
    transition: 300ms opacity;
 }
 
-.vote .track:hover {
-   background-color: var(--color-normal);
-   border-radius: 4px;
+
+@media (hover: hover) {
+   .vote .track:hover {
+      background-color: var(--color-normal);
+      border-radius: 4px;
+   }
 }
 
 .vote .track {
