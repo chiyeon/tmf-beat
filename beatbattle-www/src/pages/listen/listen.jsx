@@ -14,9 +14,9 @@ const TracksBox = (props) => {
          key={props.event.title}
       >
          <span className="title">
-            <p className="tag time">{props.event.time}</p>
             <p className="tag">{props.event.date}</p>
             <h2>{props.event.title}</h2>
+            <p className="tag time">{props.event.time}</p>
             <hr />
          </span>
 
