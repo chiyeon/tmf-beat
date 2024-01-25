@@ -266,7 +266,7 @@ const start = (port) => {
 }
 
 // setup web server
-app.use(cors({ origin: [process.env.CLIENT_IP] }))
+app.use(cors({ origin: process.env.CLIENT_IP.split("|") }))
 app.use(body_parser.json())
 
 app.post("/vote", on_vote)
