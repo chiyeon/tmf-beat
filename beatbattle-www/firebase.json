@@ -6,9 +6,13 @@
       "**/.*",
       "**/node_modules/**"
     ],
-    "rewrites": [ {
-      "source": "**",
-      "destination": "/index.html"
-    } ]
+    "rewrites": [ 
+      {
+		  "source": "/tracks/**", "destination": "/tracks/"
+      },
+      {
+		  "source": "!/tracks/**", "destination": "/index.html"
+      }
+    ]
   }
 }

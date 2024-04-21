@@ -33,7 +33,6 @@
 @media (hover: hover) {
    .vote .track:hover {
       background-color: var(--color-normal);
-      border-radius: 4px;
    }
 }
 
@@ -49,6 +48,10 @@
 .vote .track:hover .track-monkey img,
 .vote .track.selected .track-monkey img {
    opacity: 1;
+}
+
+.vote .track-title {
+   margin-bottom: 8px;
 }
 
 .notification {

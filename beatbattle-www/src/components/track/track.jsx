@@ -26,7 +26,7 @@ const Track = (props) => {
             <p>{props.track.artist} - <strong>{props.track.title}</strong></p>
          </span>
          <audio ref={audioRef}>
-            <source src={props.track.link} />
+            <source src={process.env.PUBLIC_URL + props.track.link} />
             Your browser does not support the audio element.
          </audio>
       </div>
