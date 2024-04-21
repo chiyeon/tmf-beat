@@ -148,13 +148,14 @@ button.tag {
       background-color: var(--color-light);
    }
 }
-
+/*
 button.tag:focus {
    background-color: var(--color-light);
 }
 button.tag:active {
    background-color: var(--color-normal);
 }
+*/
 
 .title p {
    margin-top: 0;

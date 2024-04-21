@@ -83,3 +83,13 @@
    margin-right: 5px;
    margin-bottom: 10px !important;
 }
+
+.listen .tag.time {
+   top: 0;
+   left: unset;
+   right: 0;
+   margin-bottom: 0px;
+   margin-top: 8px;
+   background-color: var(--color-normal);
+   color: var(--color-light);
+}
