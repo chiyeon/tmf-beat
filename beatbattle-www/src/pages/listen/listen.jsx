@@ -15,7 +15,7 @@ const TracksBox = (props) => {
       >
          <span className="title">
             <p className="tag">{props.event.date}</p>
-            <h2>{props.event.title}</h2>
+            <h2 id={props.event.title.split(' ').join('-').toLowerCase()}>{props.event.title}</h2>
             <p className="tag time">{props.event.time}</p>
             <hr />
          </span>
